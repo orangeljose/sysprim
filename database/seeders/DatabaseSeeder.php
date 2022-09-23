@@ -13,6 +13,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // User::factory(10)->create();
+        $this->call(VehicleBrandSeeder::class);
+        $this->call(VehicleModelSeeder::class);
+        $this->call(VehicleSeeder::class);
     }
 }

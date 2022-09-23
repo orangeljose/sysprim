@@ -14,7 +14,8 @@
         "guzzlehttp/guzzle": "^7.0.1",
         "laravel/breeze": "1.9.2",
         "laravel/framework": "^8.0",
-        "laravel/tinker": "^2.0"
+        "laravel/tinker": "^2.0",
+        "staudenmeir/belongs-to-through": "^2.11"
     },
     "require-dev": {
         "facade/ignition": "^2.3.6",
@@ -38,7 +39,10 @@
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/"
-        }
+        },
+        "files": [
+            "app/Helpers/AssociateTo.php"
+          ]
     },
     "autoload-dev": {
         "psr-4": {
