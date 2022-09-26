@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\Filterable;
 use App\Scopes\NameSortingScope;
 use App\Traits\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -11,13 +12,17 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class VehicleModel extends Model
 {
-    use HasFactory,
+    use Filterable, 
+        HasFactory,
         SoftDeletes;
 
     protected $fillable = [
         'name',
+        'year',
         'vehicle_brand_id',
     ];
+
+    protected $with = ['vehicleBrand'];
 
     protected static function boot()
     {

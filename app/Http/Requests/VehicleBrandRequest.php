@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\NameRule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class VehicleBrandRequest extends FormRequest
@@ -13,7 +14,7 @@ class VehicleBrandRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,8 +24,14 @@ class VehicleBrandRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            //
-        ];
+        if ($this->isMethod('post')) {
+            return [
+                'name' => ['required','string', 'unique:vehicle_brands,name', new NameRule()],
+            ];
+        } else {
+            return [
+                'name' => ['string', 'unique:vehicle_brands,name', new NameRule()],
+            ];
+        }
     }
 }

@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\PlateRule;
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class VehicleRequest extends FormRequest
@@ -13,7 +15,7 @@ class VehicleRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,8 +25,21 @@ class VehicleRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            //
-        ];
+        /** @var Vehicle $vehicle */
+        $vehicle = $this->route('vehicle') ?? $this->vehicle;
+
+        if ($this->isMethod('post')) {
+            return [
+                'vehicle_model_id' => 'required|exists:vehicle_models,id',
+                'plate' => ['required', new PlateRule(), Rule::unique('vehicles', 'plate')],
+                'color' => 'required|string'
+            ];
+        } else {
+            return [
+                'vehicle_model_id' => 'exists:vehicle_models,id',
+                'plate' => ['string', new PlateRule(), Rule::unique('vehicles', 'plate')->ignore($vehicle['id'] ?? null)],
+                'color' => 'required|string'
+            ];
+        }
     }
 }

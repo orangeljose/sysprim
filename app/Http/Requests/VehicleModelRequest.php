@@ -13,7 +13,7 @@ class VehicleModelRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,8 +23,18 @@ class VehicleModelRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            //
-        ];
+        if ($this->isMethod('post')) {
+            return [
+                'name' => 'required|string',
+                'vehicle_brand_id' => 'required|exists:vehicle_brands,id',
+                'year' => 'required|string',
+            ];
+        } else {
+            return [
+                'name' => 'string',
+                'vehicle_brand_id' => 'exists:vehicle_brands,id',
+                'year' => 'string',
+            ];
+        }
     }
 }

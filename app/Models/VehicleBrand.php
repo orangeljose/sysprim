@@ -2,15 +2,17 @@
 
 namespace App\Models;
 
-use App\Scopes\NameSortingScope;
+use App\Traits\Filterable;
 use App\Traits\SoftDeletes;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Scopes\NameSortingScope;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class VehicleBrand extends Model
 {
-    use HasFactory,
+    use Filterable,
+        HasFactory,
         SoftDeletes;
 
     protected $fillable = [

@@ -3,84 +3,81 @@
 namespace App\Http\Controllers;
 
 use App\Models\VehicleBrand;
+use Illuminate\Http\JsonResponse;
+use App\Http\Requests\VehicleBrandRequest;
+use App\Http\Resources\VehicleBrandResource;
 use App\Http\Requests\Storevehicle_brandRequest;
 use App\Http\Requests\Updatevehicle_brandRequest;
 
 class VehicleBrandController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of Vehicle Brands.
      *
-     * @return \Illuminate\Http\Response
+     * @return JsonResponse
      */
     public function index()
     {
-        //
+        $vehicleBrands = VehicleBrand::filter(request()->all())
+        ->getOrPaginate();
+
+        return $this->indexResponse(VehicleBrandResource::collection($vehicleBrands));
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Store a newly created VehicleBrand in storage.
      *
-     * @return \Illuminate\Http\Response
+     * @param VehicleBrandRequest $request
+     *
+     * @return JsonResponse
      */
-    public function create()
+    public function store(VehicleBrandRequest $request)
     {
-        //
+        $vehicleBrand = VehicleBrand::create($request->validated());
+
+        return $this->storeResponse(new VehicleBrandResource($vehicleBrand));
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Display the specified VehicleBrands.
      *
-     * @param  \App\Http\Requests\Storevehicle_brandRequest  $request
-     * @return \Illuminate\Http\Response
+     * @param VehicleBrand $vehicleBrand
+     *
+     * @return JsonResponse
      */
-    public function store(Storevehicle_brandRequest $request)
+    public function show(VehicleBrand $vehicleBrand)
     {
-        //
+        return $this->showResponse(new VehicleBrandResource($vehicleBrand));
     }
 
     /**
-     * Display the specified resource.
+     * Update the specified VehicleBrand in storage.
      *
-     * @param  \App\Models\vehicle_brand  $vehicle_brand
-     * @return \Illuminate\Http\Response
+     * @param VehicleBrandRequest $request
+     * @param VehicleBrand $vehicleBrand
+     * @param FileService $fileService
+     *
+     * @return JsonResponse
      */
-    public function show(vehicle_brand $vehicle_brand)
+    public function update(VehicleBrandRequest $request, VehicleBrand $vehicleBrand)
     {
-        //
+        $vehicleBrand->update($request->validated());
+
+        return $this->updateResponse(new VehicleBrandResource($vehicleBrand));
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Remove the specified VehicleBrand from storage.
      *
-     * @param  \App\Models\vehicle_brand  $vehicle_brand
-     * @return \Illuminate\Http\Response
+     * @param VehicleBrand $vehicleBrand
+     *
+     * @return JsonResponse
+     * @throws AuthorizationException
      */
-    public function edit(vehicle_brand $vehicle_brand)
+    public function destroy(VehicleBrand $vehicleBrand)
     {
-        //
-    }
+        $this->destroyModel($vehicleBrand);
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\Updatevehicle_brandRequest  $request
-     * @param  \App\Models\vehicle_brand  $vehicle_brand
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Updatevehicle_brandRequest $request, vehicle_brand $vehicle_brand)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\vehicle_brand  $vehicle_brand
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(vehicle_brand $vehicle_brand)
-    {
-        //
+        return $this->destroyResponse();
     }
 }
