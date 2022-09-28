@@ -15,7 +15,7 @@ class CreateVehicleBrandsTable extends Migration
     {
         Schema::create('vehicle_brands', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->unique();
+            $table->string('name');
             $table->timestamps();
             $table->softDeletes();
         });

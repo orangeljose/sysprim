@@ -18,6 +18,7 @@ class VehicleFactory extends Factory
             'vehicle_model_id' => associateTo(VehicleModel::class),
             'color' => $this->faker->safeColorName(),
             'plate' => $this->faker->unique()->regexify('/\d{4}[BCDFGHJKMNLPRSTVWXYZ]{3}/'),
+            'entry_date' => $this->faker->date(),
         ];
     }
 }

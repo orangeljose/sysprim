@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\VehicleBrand;
+use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use App\Http\Requests\VehicleBrandRequest;
 use App\Http\Resources\VehicleBrandResource;
@@ -18,10 +19,28 @@ class VehicleBrandController extends Controller
      */
     public function index()
     {
-        $vehicleBrands = VehicleBrand::filter(request()->all())
-        ->getOrPaginate();
+        $vehicleBrands = VehicleBrand::filter(request()->all())->get();
+        return view('VehicleBrands.index', compact('vehicleBrands'));
+    }
 
-        return $this->indexResponse(VehicleBrandResource::collection($vehicleBrands));
+    /**
+     * Show the brand creation view.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function create(){
+        return view('VehicleBrands.create');
+    }
+    
+    /**
+     * Show the brand edition view.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function edit($id){
+        $brand = VehicleBrand::where('id', '=', $id)->get()->first();
+
+        return view('VehicleBrands.edit', compact('brand'));    
     }
 
     /**
@@ -47,7 +66,7 @@ class VehicleBrandController extends Controller
      */
     public function show(VehicleBrand $vehicleBrand)
     {
-        return $this->showResponse(new VehicleBrandResource($vehicleBrand));
+        return $this->showResponse(new VehicleBrandResource($vehicleBrand));    
     }
 
     /**
@@ -77,7 +96,7 @@ class VehicleBrandController extends Controller
     public function destroy(VehicleBrand $vehicleBrand)
     {
         $this->destroyModel($vehicleBrand);
-
-        return $this->destroyResponse();
+                
+        $this->destroyResponse();
     }
 }

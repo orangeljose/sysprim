@@ -22,7 +22,7 @@ class VehicleModel extends Model
         'vehicle_brand_id',
     ];
 
-    protected $with = ['vehicleBrand'];
+    // protected $with = ['vehicleBrand'];
 
     protected static function boot()
     {

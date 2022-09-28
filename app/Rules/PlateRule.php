@@ -60,6 +60,6 @@ class PlateRule implements Rule
      */
     public function message()
     {
-        return trans('validation.invalid', ['value' => $this->value]);
+        return 'La placa debe tener 1 carácter numérico, 1 no numérico y no mas de 5 caracteres iguales.';
     }
 }

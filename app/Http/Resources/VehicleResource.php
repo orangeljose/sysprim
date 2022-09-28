@@ -25,6 +25,7 @@ class VehicleResource extends ApiResource
             'vehicle_model_id' => $this->vehicle_model_id,
             'plate' => $this->plate,
             'color' => $this->color,
+            'entry_date' => $this->entry_date,
             'created_at' => optional($this->created_at)->toDateTimeString(),
             'updated_at' => optional($this->updated_at)->toDateTimeString(),
             'deleted_at' => optional($this->deleted_at)->toDateString(),

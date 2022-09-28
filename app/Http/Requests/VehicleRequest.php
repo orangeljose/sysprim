@@ -25,21 +25,33 @@ class VehicleRequest extends FormRequest
      */
     public function rules()
     {
-        /** @var Vehicle $vehicle */
-        $vehicle = $this->route('vehicle') ?? $this->vehicle;
-
         if ($this->isMethod('post')) {
             return [
                 'vehicle_model_id' => 'required|exists:vehicle_models,id',
                 'plate' => ['required', new PlateRule(), Rule::unique('vehicles', 'plate')],
-                'color' => 'required|string'
+                'color' => ['required','min:3','max:15'],
+                'entry_date' => 'required',
             ];
         } else {
             return [
-                'vehicle_model_id' => 'exists:vehicle_models,id',
-                'plate' => ['string', new PlateRule(), Rule::unique('vehicles', 'plate')->ignore($vehicle['id'] ?? null)],
-                'color' => 'required|string'
+                'vehicle_model_id' => 'required|exists:vehicle_models,id',
+                'plate' => ['required', new PlateRule(), Rule::unique('vehicles', 'plate')->ignore($this->id_original, 'id')],
+                'color' => ['required','min:3','max:15'],
+                'entry_date' => 'required',
             ];
         }
+    }
+
+    public function messages()
+    {
+        return [
+            'plate.unique' => 'Esta placa ya se encuentra registrada con otro vehiculo.',
+            'plate.required' => 'La placa es requerida.',
+            'vehicle_model_id.exists' => 'El modelo seleccionado es invalido.',
+            'color.required' => 'El color es requerido.',
+            'color.min' => 'La fecha de entrada es requerida.',
+            'color.max' => 'La fecha de entrada es requerida.',
+            'entry_date.required' => 'La fecha de entrada es requerida.',
+        ];
     }
 }

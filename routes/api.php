@@ -24,7 +24,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 /*
 * Vehicles
 */
-Route::resource('vehicles', VehicleController::class)->except(['edit', 'create']);
-Route::resource('vehicle_brands', VehicleBrandController::class)->except(['edit', 'create']);
-Route::resource('vehicle_models', VehicleModelController::class)->except(['edit', 'create']);
+Route::resource('vehicles', VehicleController::class);
+Route::resource('vehicle_brands', VehicleBrandController::class);
+Route::resource('vehicle_models', VehicleModelController::class);
+Route::get('/vehicle_models/list/{brand}', [VehicleModelController::class, 'list'])->name('vehicle_models.lista');
 //->middleware(['auth'])

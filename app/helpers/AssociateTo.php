@@ -1,7 +1,4 @@
 <?php
-
-
-
 /**
  * Helper that returns an ID of a specified Model (by class name).
  * If there are any Model, it will grab one randomly, if not, it will create a new one using its Factory

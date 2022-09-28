@@ -17,21 +17,16 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-    // const MAX_REGISTERS = 5000; // Max amount of register allowed when filtering or downloading a file
-    // const MAX_REGISTERS_EXCEL = self::MAX_REGISTERS * 5;
-
     protected string $modelName;
     protected bool $female = false;
     protected bool $onlyAction = false;
     private SimpleResponse $simpleResponse;
-    // private FileResponse $fileResponse;
-    // private FileService $fileService;
+
 
     public function __construct()
     {
         $this->simpleResponse = resolve(SimpleResponse::class);
-        // $this->fileResponse = resolve(FileResponse::class);
-        // $this->fileService = resolve(FileService::class);
+
     }
 
     /**

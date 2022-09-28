@@ -20,7 +20,8 @@ class CreateVehicleModelsTable extends Migration
             $table->string('year');
             $table->timestamps();
             $table->softDeletes();
-            $table->unique(['vehicle_brand_id', 'name']);
+            $table->unique(['vehicle_brand_id', 'name', 'year']);
+            $table->foreign('vehicle_brand_id')->references('id')->on('vehicle_brands')->onUpdate('NO ACTION')->onDelete('CASCADE');
         });
     }
 
