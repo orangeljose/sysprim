@@ -42,8 +42,7 @@
             },
             error: function (err) {
                 if(err.status == 422){
-                    $.each(err.responseJSON.errors, function (i,error) {
-                        // $("#ErrorEdit").html($('<span style="color: red">'+error[0]+'</span>'))
+                    $.each(err.responseJSON.errors, function (i,error) {                        
                         var el = $(document).find('[name="'+i+'"]');
                             el.after($('<span style="color: red;">'+error[0]+'</span>'));
                     })

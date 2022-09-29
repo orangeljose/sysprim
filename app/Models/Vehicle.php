@@ -38,7 +38,6 @@ class Vehicle extends Model
     {
         return Str::of($value)
             ->trim()
-            ->replace([' ', '-'], '')
             ->upper()
             ->__toString();
     }
