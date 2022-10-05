@@ -1,6 +1,13 @@
 <x-app-layout>
     
     <form>
+
+        <div >
+            <ul id="tasks" class="mt-3 list-disc list-inside text-sm text-red-600">
+ 
+            </ul>
+        </div>
+
         <div class="mb-6">
 
             <label for="brand" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Marca</label>
@@ -71,17 +78,38 @@
                 _token          : _token
             },
             success:function(response){
+                let template = `    `;
+                $('#tasks').html(template);
                 toastr.success('Registro exitoso', 'Nuevo registro');
                 setTimeout(() => {
-                    window.location.href = '/api/vehicles'
+                    window.location.href = '/vehicles'
                 }, 1000);                    
             },
             error: function (err) {
                 if(err.status == 422){
-                    $.each(err.responseJSON.errors, function (i,error) {                        
-                        var el = $(document).find('[name="'+i+'"]');
-                            el.after($('<span style="color: red;">'+error[0]+'</span>'));
-                    })
+                    let template = `
+                    <div class="alert flex flex-row items-center bg-red-200 p-5 rounded border-b-2 border-red-300 my-5 mb-4">
+                        <div class="alert-icon flex items-center bg-red-100 border-2 border-red-500 justify-center h-10 w-10 flex-shrink-0 rounded-full mt-2">
+                                <span class="text-red-500">
+                                    <svg fill="currentColor"
+                                        viewBox="0 0 20 20"
+                                        class="h-6 w-6">
+                                        <path fill-rule="evenodd"
+                                            d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                            clip-rule="evenodd"></path>
+                                    </svg>
+                                </span>
+                        </div>`;
+
+                    $.each(err.responseJSON.errors, function (i,error) {
+                    template += `
+                            <li class="ml-2">
+                                ${error[0]}
+                            </li>
+                            `
+                    });
+                    template += `</div>`;
+                    $('#tasks').html(template);
                 }
             }   
         });

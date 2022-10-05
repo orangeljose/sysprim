@@ -94,7 +94,7 @@
                 type: "GET",
                 url: "{{route('vehicle_models.create')}}",
                 success: function() { 
-                    window.location.href = '/api/vehicle_models/create'
+                    window.location.href = '/vehicle_models/create'
                 },
                 error: function(xhr, ajaxOptions, thrownerror) { }
             })
@@ -109,7 +109,7 @@
             let _token = $('input[name=_token]').val();
             $.ajax({
                 type: "DELETE",
-                url: "/api/vehicle_models/"+id,
+                url: "/vehicle_models/"+id,
                 data: {
                     id: id,
                     _token: _token

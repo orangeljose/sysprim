@@ -88,7 +88,7 @@
                 type: "GET",
                 url: "{{route('vehicle_brands.create')}}",
                 success: function() { 
-                    window.location.href = '/api/vehicle_brands/create'
+                    window.location.href = '/vehicle_brands/create'
                 },
                 error: function(xhr, ajaxOptions, thrownerror) { }
             })
@@ -104,7 +104,7 @@
             let _token = $('input[name=_token]').val();
             $.ajax({
                 type: "DELETE",
-                url: "/api/vehicle_brands/"+id,
+                url: "/vehicle_brands/"+id,
                 data: {
                     id: id,
                     _token: _token
@@ -112,7 +112,7 @@
                 success:function(response){
                     toastr.success('eliminacion exitosa', 'Eliminar registro', 3000);
                     setTimeout(() => {
-                        window.location.href = '/api/vehicle_brands'
+                        window.location.href = '/vehicle_brands'
                     }, 1000);
                 },
                 error: function (err) {
